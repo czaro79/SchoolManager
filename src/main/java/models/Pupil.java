@@ -1,7 +1,6 @@
 package models;
 
 import java.util.*;
-import java.util.stream.DoubleStream;
 
 public class Pupil implements Comparable<Pupil> {
     private String firstName;
@@ -90,7 +89,6 @@ public class Pupil implements Comparable<Pupil> {
     }
 
     public double calculateAverageMark(Subject subject) {
-
         return (double) Math.round(this.marks.get(subject).stream().mapToDouble(d -> d).average().orElse(0.0) * 100) / 100;
     }
 

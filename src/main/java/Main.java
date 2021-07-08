@@ -14,8 +14,6 @@ public class Main {
         loadPupils("src/main/java/models/pupils.txt");
         sortLoadedPupilsList();
         manageClassroom();
-
-
     }
 
     public static void loadPupils(String fileName) {
@@ -29,8 +27,13 @@ public class Main {
     public static void manageClassroom() {
         while (true) {
             printMenu();
-            performOperation(scan.nextLine().toLowerCase());
-            continue;
+            if (performOperation(scan.nextLine().toLowerCase())) {
+                performOperation(scan.nextLine().toLowerCase());
+            } else {
+                System.out.println("Do zobaczenia nastepnym razem!");
+                break;
+            }
+
         }
     }
 
@@ -55,7 +58,7 @@ public class Main {
         classroom.sortPupilsList();
     }
 
-    public static void performOperation(String selectedOption) {
+    public static boolean performOperation(String selectedOption) {
         switch (selectedOption) {
             case "a":
                 printPupilsList();
@@ -64,335 +67,21 @@ public class Main {
                 printMarksOfAllPupils();
                 break;
             case "c":
-                String firstName;
-                String lastName;
-                while (true) {
-                    System.out.print("Podaj imie ucznia: ");
-                    firstName = scan.nextLine().trim();
-                    if (firstName.isBlank()) {
-                        continue;
-                    } else {
-                        break;
-                    }
-                }
-                while (true) {
-                    System.out.print("Podaj nazwisko ucznia: ");
-                    lastName = scan.nextLine().trim();
-                    if (lastName.isBlank()) {
-                        continue;
-                    } else {
-                        System.out.println();
-                        break;
-                    }
-                }
-                if (!classroom.contains(new Pupil(firstName, lastName))) {
-                    System.out.println("Brak ucznia na liscie.\n");
-
-                } else {
-                    classroom.showPupilMarks(new Pupil(firstName, lastName));
-                }
+                printSelectedPupilsMarks();
                 break;
             case "d":
-                System.out.println("Z jakiego przedmiotu odpytujesz ucznia?");
-                System.out.println("B - biologia\n" +
-                        "C - chemia\n" +
-                        "A - jezyk angielski\n" +
-                        "F - jezyk francuski\n" +
-                        "M - matematyka\n" +
-                        "FI - fizyka\n");
-                System.out.print("Przedmiot: ");
-                while (true) {
-                    int mark;
-                    switch (scan.nextLine().toLowerCase().trim()) {
-
-                        case "b":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.BIOLOGY, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        case "c":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.CHEMISTRY, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        case "a":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.ENGLISH, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        case "f":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.FRENCH, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        case "m":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.MATHEMATICS, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        case "fi":
-                            while (true) {
-                                System.out.print("Podaj imie ucznia: ");
-                                firstName = scan.nextLine().trim();
-                                if (firstName.isBlank()) {
-                                    continue;
-                                } else {
-                                    break;
-                                }
-                            }
-                            while (true) {
-                                System.out.print("Podaj nazwisko ucznia: ");
-                                lastName = scan.nextLine().trim();
-                                if (lastName.isBlank()) {
-                                    continue;
-                                } else {
-                                    System.out.println();
-                                    break;
-                                }
-                            }
-                            if (classroom.getPupil(firstName, lastName) == null) {
-                                System.out.println("\nBrak ucznia na liscie.");
-                                break;
-                            } else {
-                                mark = new Pupil(firstName, lastName).getRandomMark();
-                                classroom.getPupil(firstName, lastName).addMark(Subject.PHYSICS, mark);
-                                System.out.println(firstName + " " + lastName + " otrzymal ocene: " + mark);
-                                System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                                scan.nextLine();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                }
+                examinePupil();
                 break;
             case "e":
-                System.out.println("Z jakiego przedmiotu robimy sprawdzian?");
-                System.out.println("B - biologia\n" +
-                        "C - chemia\n" +
-                        "A - jezyk angielski\n" +
-                        "F - jezyk francuski\n" +
-                        "M - matematyka\n" +
-                        "FI - fizyka\n");
-                System.out.print("Przedmiot: ");
-                switch (scan.nextLine().toLowerCase().trim()) {
-                    case "b":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.BIOLOGY, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    case "c":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.CHEMISTRY, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    case "a":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.ENGLISH, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    case "f":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.FRENCH, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    case "m":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.MATHEMATICS, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    case "fi":
-                        for (int i = 0; i < classroom.getPupils().size(); i++) {
-                            classroom.getPupil(i).addMark(Subject.PHYSICS, classroom.getPupil(i).getRandomMark());
-                        }
-                        System.out.println("\nPrace sprawdzone, oceny wystawione.");
-                        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                        scan.nextLine();
-                        break;
-                    default:
-                        break;
-                }
+                examineAllPupils();
                 break;
             case "f":
-                while (true) {
-                    System.out.print("Podaj imie ucznia: ");
-                    firstName = scan.nextLine().trim();
-                    if (firstName.isBlank()) {
-                        continue;
-                    } else {
-                        break;
-                    }
-                }
-                while (true) {
-                    System.out.print("Podaj nazwisko ucznia: ");
-                    lastName = scan.nextLine().trim();
-                    if (lastName.isBlank()) {
-                        continue;
-                    } else {
-                        System.out.println();
-                        break;
-                    }
-                }
-                if (classroom.getPupil(firstName, lastName) != null) {
-                    System.out.println(firstName + " " + lastName + " srednie arytmetyczne ocen:");
-                    Subject[] subject = Subject.values();
-                    for (Subject sub : subject
-                    ) {
-                        System.out.println(sub + ": " + classroom.getPupil(firstName, lastName).calculateAverageMark(sub));
-                    }
-                    System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-                    scan.nextLine();
-                }
+                printAverageMarks();
                 break;
-            default:
-                break;
+            case "x":
+                return false;
         }
+        return true;
     }
 
     public static void printPupilsList() {
@@ -407,6 +96,137 @@ public class Main {
         scan.nextLine();
     }
 
+    public static String[] getPupilsFirstLastName() {
+        String firstName = "";
+        String lastName = "";
+        while(firstName.isBlank() || firstName == null) {
+            System.out.print("Podaj imie ucznia: ");
+            firstName = scan.nextLine().trim();
+        }
+        while(lastName.isBlank()|| lastName == null) {
+            System.out.print("Podaj nazwisko ucznia: ");
+            lastName = scan.nextLine().trim();
+        }
+        return new String[]{firstName, lastName};
+    }
 
+    public static void printSelectedPupilsMarks() {
+        String[] name = getPupilsFirstLastName();
+        if (!classroom.contains(new Pupil(name[0], name[1]))) {
+            System.out.println("Brak ucznia na liscie.\n");
+
+        } else {
+            classroom.showPupilMarks(new Pupil(name[0], name[1]));
+        }
+        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
+        scan.nextLine();
+
+    }
+
+    public static void examinePupilBySubject(Subject subject) {
+        int mark;
+        String[] name = getPupilsFirstLastName();
+        if (classroom.getPupil(name[0], name[1]) == null) {
+            System.out.println("\nBrak ucznia na liscie.");
+        } else {
+            mark = new Pupil(name[0], name[1]).getRandomMark();
+            classroom.getPupil(name[0], name[1]).addMark(subject, mark);
+            System.out.println(name[0] + " " + name[1] + " otrzymal ocene: " + mark);
+            System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
+            scan.nextLine();
+        }
+    }
+
+    public static void examinePupil() {
+        System.out.println("Z jakiego przedmiotu odpytujesz ucznia?");
+        System.out.println("B - biologia\n" +
+                "C - chemia\n" +
+                "A - jezyk angielski\n" +
+                "F - jezyk francuski\n" +
+                "M - matematyka\n" +
+                "FI - fizyka\n");
+        System.out.print("Przedmiot: ");
+        while (true) {
+            switch (scan.nextLine().toLowerCase().trim()) {
+                case "b":
+                    examinePupilBySubject(Subject.BIOLOGY);
+                    break;
+                case "c":
+                    examinePupilBySubject(Subject.CHEMISTRY);
+                    break;
+                case "a":
+                    examinePupilBySubject(Subject.ENGLISH);
+                    break;
+                case "f":
+                    examinePupilBySubject(Subject.FRENCH);
+                    break;
+                case "m":
+                    examinePupilBySubject(Subject.MATHEMATICS);
+                    break;
+                case "fi":
+                    examinePupilBySubject(Subject.PHYSICS);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+    }
+
+    public static void printAverageMarks() {
+        String[] name = getPupilsFirstLastName();
+        if (classroom.getPupil(name[0], name[1]) != null) {
+            System.out.println(name[0] + " " + name[1] + " srednie arytmetyczne ocen:");
+            Subject[] subject = Subject.values();
+            for (Subject sub : subject
+            ) {
+                System.out.println(sub + ": " + classroom.getPupil(name[0], name[1]).calculateAverageMark(sub));
+            }
+            System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
+            scan.nextLine();
+        }
+    }
+
+    public static void examineAllPupils() {
+        System.out.println("Z jakiego przedmiotu robimy sprawdzian?");
+        System.out.println("B - biologia\n" +
+                "C - chemia\n" +
+                "A - jezyk angielski\n" +
+                "F - jezyk francuski\n" +
+                "M - matematyka\n" +
+                "FI - fizyka\n");
+        System.out.print("Przedmiot: ");
+        switch (scan.nextLine().toLowerCase().trim()) {
+            case "b":
+                examineAllBySubject(Subject.BIOLOGY);
+                break;
+            case "c":
+                examineAllBySubject(Subject.CHEMISTRY);
+                break;
+            case "a":
+                examineAllBySubject(Subject.ENGLISH);
+                break;
+            case "f":
+                examineAllBySubject(Subject.FRENCH);
+                break;
+            case "m":
+                examineAllBySubject(Subject.MATHEMATICS);
+                break;
+            case "fi":
+                examineAllBySubject(Subject.PHYSICS);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void examineAllBySubject(Subject subject) {
+        for (int i = 0; i < classroom.getPupils().size(); i++) {
+            classroom.getPupil(i).addMark(subject, classroom.getPupil(i).getRandomMark());
+        }
+        System.out.println("\nPrace sprawdzone, oceny wystawione.");
+        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
+        scan.nextLine();
+    }
 }
 

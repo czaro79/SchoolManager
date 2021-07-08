@@ -89,9 +89,9 @@ public class Pupil implements Comparable<Pupil> {
         return (int) Math.round(Math.random() * 5 + 1);
     }
 
-    public double calculateAverageMark (Subject subject) {
+    public double calculateAverageMark(Subject subject) {
 
-        return this.marks.get(subject).stream().mapToDouble(d -> d).average().orElse(0.0);
+        return (double) Math.round(this.marks.get(subject).stream().mapToDouble(d -> d).average().orElse(0.0) * 100) / 100;
     }
 
     /**

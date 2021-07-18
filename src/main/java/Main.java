@@ -99,11 +99,11 @@ public class Main {
     public static String[] getPupilsFirstLastName() {
         String firstName = "";
         String lastName = "";
-        while(firstName.isBlank() || firstName == null) {
+        while (firstName.isBlank()) {
             System.out.print("Podaj imie ucznia: ");
             firstName = scan.nextLine().trim();
         }
-        while(lastName.isBlank()|| lastName == null) {
+        while (lastName.isBlank()) {
             System.out.print("Podaj nazwisko ucznia: ");
             lastName = scan.nextLine().trim();
         }
@@ -118,23 +118,28 @@ public class Main {
         } else {
             classroom.showPupilMarks(new Pupil(name[0], name[1]));
         }
+        pressEnterToContinue();
+    }
+
+    private static void pressEnterToContinue() {
         System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
         scan.nextLine();
-
     }
 
     public static void examinePupilBySubject(Subject subject) {
-        int mark;
         String[] name = getPupilsFirstLastName();
         if (classroom.getPupil(name[0], name[1]) == null) {
             System.out.println("\nBrak ucznia na liscie.");
         } else {
-            mark = new Pupil(name[0], name[1]).getRandomMark();
-            classroom.getPupil(name[0], name[1]).addMark(subject, mark);
-            System.out.println(name[0] + " " + name[1] + " otrzymal ocene: " + mark);
-            System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-            scan.nextLine();
+            showPupilsMarkBySubject(subject, name);
         }
+    }
+
+    private static void showPupilsMarkBySubject(Subject subject, String[] name) {
+        int mark = new Pupil(name[0], name[1]).getRandomMark();
+        classroom.getPupil(name[0], name[1]).addMark(subject, mark);
+        System.out.println(name[0] + " " + name[1] + " otrzymal ocene: " + mark);
+        pressEnterToContinue();
     }
 
     public static void examinePupil() {
@@ -182,8 +187,7 @@ public class Main {
             ) {
                 System.out.println(sub + ": " + classroom.getPupil(name[0], name[1]).calculateAverageMark(sub));
             }
-            System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-            scan.nextLine();
+            pressEnterToContinue();
         }
     }
 
@@ -225,8 +229,7 @@ public class Main {
             classroom.getPupil(i).addMark(subject, classroom.getPupil(i).getRandomMark());
         }
         System.out.println("\nPrace sprawdzone, oceny wystawione.");
-        System.out.println("\nWcisnij ENTER, zeby kontynuowac.");
-        scan.nextLine();
+        pressEnterToContinue();
     }
 }
 

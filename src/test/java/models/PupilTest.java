@@ -1,12 +1,25 @@
 package models;
 
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class PupilTest {
-    Pupil pupil = new Pupil("A", "B");
+    Pupil pupil;
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWhenFirstNameIsNull() {
+        pupil = new Pupil(null, "Lastname");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWhenLastNameIsNull() {
+        pupil = new Pupil("Firstname", null);
+    }
+
 
     @Test
     public void testGetMarks() {

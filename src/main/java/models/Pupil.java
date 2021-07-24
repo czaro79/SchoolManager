@@ -8,15 +8,15 @@ public class Pupil implements Comparable<Pupil> {
     private final HashMap<Subject, ArrayList<Integer>> marks;
 
     public Pupil(String firstName, String lastName) {
-        if (firstName == null || firstName.isBlank()) {
-            throw new IllegalArgumentException("Musisz podac jakies imie ucznia!");
-        }
-        if (lastName == null || lastName.isBlank()) {
-            throw new IllegalArgumentException("Uczen musi posiadac nazwisko!");
-        }
+        throwExceptionIfFirstNameIsNull(firstName);
+        throwExceptionIfLastNameIsNull(lastName);
         this.firstName = firstName;
         this.lastName = lastName;
         this.marks = new HashMap<Subject, ArrayList<Integer>>();
+        setMarks(marks);
+    }
+
+    private void setMarks(HashMap<Subject, ArrayList<Integer>> marks) {
         Subject[] subject = Subject.values();
         for (Subject sub : subject
         ) {
@@ -24,17 +24,25 @@ public class Pupil implements Comparable<Pupil> {
         }
     }
 
-    private void setFirstName(String firstName) {
+    private void throwExceptionIfFirstNameIsNull(String firstName) {
         if (firstName == null || firstName.isBlank()) {
             throw new IllegalArgumentException("Musisz podac jakies imie ucznia!");
         }
+    }
+
+    private void throwExceptionIfLastNameIsNull(String lastName) {
+        if (lastName == null || lastName.isBlank()) {
+            throw new IllegalArgumentException("Uczen musi posiadac nazwisko!");
+        }
+    }
+
+    private void setFirstName(String firstName) {
+        throwExceptionIfFirstNameIsNull(firstName);
         this.firstName = firstName;
     }
 
     private void setLastName(String lastName) {
-        if (lastName == null || lastName.isBlank()) {
-            throw new IllegalArgumentException("Uczen musi posiadac nazwisko!");
-        }
+        throwExceptionIfLastNameIsNull(lastName);
         this.lastName = lastName;
     }
 
@@ -47,10 +55,14 @@ public class Pupil implements Comparable<Pupil> {
     }
 
     public void addMark(Subject subject, int mark) {
+        throwExceptionIfMarkIsNotInRange(mark);
+        this.marks.get(subject).add(mark);
+    }
+
+    private void throwExceptionIfMarkIsNotInRange(int mark) {
         if (mark < 1 || mark > 6) {
             throw new IllegalArgumentException("Ocena moze byc tylko w zakresie 1-6.");
         }
-        this.marks.get(subject).add(mark);
     }
 
     public Integer[] getMarks(Subject subject) {
